@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UFT-8"/>
+  <style>
+    *{
+        padding: 0px;
+        margin: 0px;
+    }
+    canvas{
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    #bottom_right{
+      position: absolute;
+      z-index: 2;
+      bottom: 3%;
+      right: 3%;
+    }
+    .numText{
+      font-family: urw-din,sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: #ffffff;
+      font-size: 50px;
+      margin: 2px;
+    }
+    .numText_Percent{
+      font-family: urw-din,sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      color: #ffffff;
+      font-size: 25px;
+      top: 43%;
+    }
+  </style>
+
+  <title>Mosaic</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+  <script src="./sketch.js"></script>
+
+  <link rel="stylesheet" href="https://use.typekit.net/kyd5vjd.css">
+</head>
+
+<body>
+  <div id="bottom_right">
+      <span id="num" class="numText">0</span>
+      <span class="numText_Percent">%</span>
+  </div>
+  </body>
+
+</html>
