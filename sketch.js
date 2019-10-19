@@ -72,16 +72,21 @@ function draw(){
 }
 
 function touchMoved(){
+  let phase=(Math.floor(map(touchX, 25, 240, 0, 100)/10))
+  if(phase === 0){
+    phase = 1;
+  }
+
   let dNum = document.getElementById('num');
   dNum.textContent='';
-  dNum.insertAdjacentHTML('afterbegin',  Math.floor(map(touchX, 25, 240, 0, 100)));
+  dNum.insertAdjacentHTML('afterbegin', phase);
 
   if(isTouch === false){
     isTouch = true;
     if(isMobile === true){
-      touchX = map(touches[0].x+touches[0].y/(width+height)/2, 0, width, 0, width/5);
+      touchX = map(touches[0].x, 0, width, 0, width/5);
     }else{
-      touchX = map(mouseX+mouseY/(width+height)/2, 0, width, 0, width/5);
+      touchX = map(mouseX, 0, width, 0, width/5);
     }
     
   } else {
