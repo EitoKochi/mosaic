@@ -86,7 +86,7 @@ function touchMoved(){
     if(isMobile === true){
       touchX = map(width-touches[0].x, width, 0, 0, 240+(width*0.03));
     }else{
-      touchX = map(width-mouseX, width, 0, 0, 241+(width*0.01));
+      touchX = map(width-mouseX, width, 0, 0, 240+(width*0.01));
     }
     
   } else {
