@@ -96,10 +96,11 @@ function touchMoved(){
 
 function windowResized(){
   resizeCanvas(window.innerWidth, window.innerHeight);
+  background(0);
   callCap(constraints);
 }
 
-function callCap(){
+function callCap(constraints){
   cap = createCapture(constraints);
   cap.size(window.innerWidth, window.innerHeight);
   cap.hide();
