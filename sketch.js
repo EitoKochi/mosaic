@@ -35,7 +35,6 @@ if(isMobile === true){
 }
 
 function setup(){
-
   createCanvas(window.innerWidth, window.innerHeight, P2D);
 
   callCap(constraints);
@@ -48,11 +47,28 @@ function setup(){
 }
 
 function draw(){
+
+  if(keyIsDown(RIGHT_ARROW)){
+    touchX += 2;
+  }else if(keyIsDown(LEFT_ARROW)){
+    touchX -= 2;
+  }else{
+  }
+  
   if(touchX > 240){
     touchX = 240;
-  }else if(touchX < 25){
-    touchX = 25
+  }else if(touchX < 24){
+    touchX = 24
   }
+
+  let phase=(Math.floor(map(touchX, 0, 240, 0, 100)/10))
+  if(phase === 0){
+    phase = 1;
+  }
+
+  let dNum = document.getElementById('num');
+  dNum.textContent='';
+  dNum.insertAdjacentHTML('afterbegin', phase);
 
   let interval = touchX;
   
@@ -72,15 +88,6 @@ function draw(){
 }
 
 function touchMoved(){
-  let phase=(Math.floor(map(touchX, 25, 240, 0, 100)/10))
-  if(phase === 0){
-    phase = 1;
-  }
-
-  let dNum = document.getElementById('num');
-  dNum.textContent='';
-  dNum.insertAdjacentHTML('afterbegin', phase);
-
   if(isTouch === false){
     isTouch = true;
     if(isMobile === true){
@@ -88,7 +95,6 @@ function touchMoved(){
     }else{
       touchX = map(width-mouseX, width, 0, 0, 240+(width*0.01));
     }
-    
   } else {
     isTouch = false;
   }
