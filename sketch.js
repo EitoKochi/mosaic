@@ -5,6 +5,7 @@ let touchX = 25;
 let isTouch = false;
 let isMobile;
 let x_touch;
+let phase;
 
 if(navigator.userAgent.match(/iPhone|ipad|ipod|Android|Windows Phone/i )){
   isMobile = true;
@@ -49,20 +50,12 @@ function setup(){
 function draw(){
   registerDegreeMosaic();
   
+
   if(touchX > 240){
     touchX = 240;
   }else if(touchX < 24){
     touchX = 24
   }
-
-  let phase=(Math.floor(map(touchX, 0, 240, 0, 100)/10))
-  if(phase === 0){
-    phase = 1;
-  }
-
-  let dNum = document.getElementById('num');
-  dNum.textContent='';
-  dNum.insertAdjacentHTML('afterbegin', phase);
 
   let interval = touchX;
   
@@ -83,17 +76,21 @@ function registerDegreeMosaic(){
   //キーを二重に押すことで変化量を倍にさせる
   if(keyIsDown(RIGHT_ARROW) && keyIsDown(UP_ARROW)){
     touchX += 4;
+    updateNumText();
   }else if(keyIsDown(LEFT_ARROW) && keyIsDown(DOWN_ARROW)){
     touchX -= 4;
+    updateNumText();
   //キーを押すことでモザイクの度合いを変化させる
   }else if(keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW)){
     touchX += 2;
+    updateNumText();
   }else if(keyIsDown(LEFT_ARROW) || keyIsDown(DOWN_ARROW)){
     touchX -= 2;
+    updateNumText();
   //例外処理
   }else{
   }
-
+  
   //クリックまたはタッチ
   if(isTouch === true){
     if(isMobile === true){
@@ -102,9 +99,22 @@ function registerDegreeMosaic(){
       touchX = map(width-mouseX, width, 0, 0, 240+(width*0.01));
     }
     isTouch = false;
+    updateNumText();
+  }
+
+}
+
+function updateNumText(){
+  let phase = (Math.floor(map(touchX, 0, 240, 0, 100)/10))
+  if(phase === 0){
+    phase = 1;
   }
   
+  let dNum = document.getElementById('num');
+  dNum.textContent='';
+  dNum.insertAdjacentHTML('afterbegin', phase);
 }
+
 
 function touchMoved(){
   x_touch = touches[0].x;
