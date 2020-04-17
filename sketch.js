@@ -100,6 +100,8 @@ function registerDegreeMosaic(){
     }
     isTouch = false;
     updateNumText();
+  //例外処理
+  }else{
   }
 
 }
