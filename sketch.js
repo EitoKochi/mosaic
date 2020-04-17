@@ -48,10 +48,19 @@ function setup(){
 
 function draw(){
 
-  if(keyIsDown(RIGHT_ARROW)){
+  //矢印キーを二重に押すことで変化量も倍にする
+  if(keyIsDown(RIGHT_ARROW) && keyIsDown(UP_ARROW)){
+    touchX += 4;
+  }else if(keyIsDown(LEFT_ARROW) && keyIsDown(DOWN_ARROW)){
+    touchX -= 4;
+  
+  //矢印キーを押すことでモザイクの度合いに変化を与える
+  }else if(keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW)){
     touchX += 2;
-  }else if(keyIsDown(LEFT_ARROW)){
+  }else if(keyIsDown(LEFT_ARROW) || keyIsDown(DOWN_ARROW)){
     touchX -= 2;
+
+  //例外処理
   }else{
   }
   
