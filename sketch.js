@@ -51,11 +51,7 @@ function draw(){
   registerDegreeMosaic();
   
 
-  if(touchX > 240){
-    touchX = 240;
-  }else if(touchX < 24){
-    touchX = 24
-  }
+  
 
   let interval = touchX;
   
@@ -72,6 +68,14 @@ function draw(){
 }
 
 function registerDegreeMosaic(){
+  
+  //上限・下限
+  if(touchX > 240){
+    touchX = 240;
+  }else if(touchX < 24){
+    touchX = 24
+  }
+
   //矢印キー
   //キーを二重に押すことで変化量を倍にさせる
   if(keyIsDown(RIGHT_ARROW) && keyIsDown(UP_ARROW)){
