@@ -4,6 +4,7 @@ let cap;
 let touchX = 25;
 let isTouch = false;
 let isMobile;
+let x_touch;
 
 if(navigator.userAgent.match(/iPhone|ipad|ipod|Android|Windows Phone/i )){
   isMobile = true;
@@ -43,26 +44,10 @@ function setup(){
   background(0);
 
   frameRate(30);
-
 }
 
 function draw(){
-
-  //矢印キーを二重に押すことで変化量も倍にする
-  if(keyIsDown(RIGHT_ARROW) && keyIsDown(UP_ARROW)){
-    touchX += 4;
-  }else if(keyIsDown(LEFT_ARROW) && keyIsDown(DOWN_ARROW)){
-    touchX -= 4;
-  
-  //矢印キーを押すことでモザイクの度合いに変化を与える
-  }else if(keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW)){
-    touchX += 2;
-  }else if(keyIsDown(LEFT_ARROW) || keyIsDown(DOWN_ARROW)){
-    touchX -= 2;
-
-  //例外処理
-  }else{
-  }
+  registerDegreeMosaic();
   
   if(touchX > 240){
     touchX = 240;
@@ -87,26 +72,43 @@ function draw(){
       let y = map(w, 0, height, 0, height);
       let col = cap.get(x, y);
       fill(col);
-      
-      
       rect(v, w, touchX, touchX);
     }
   }
-  
   setTimeout(function(){},50);
 }
 
-function touchMoved(){
-  if(isTouch === false){
-    isTouch = true;
+function registerDegreeMosaic(){
+  //矢印キー
+  //キーを二重に押すことで変化量を倍にさせる
+  if(keyIsDown(RIGHT_ARROW) && keyIsDown(UP_ARROW)){
+    touchX += 4;
+  }else if(keyIsDown(LEFT_ARROW) && keyIsDown(DOWN_ARROW)){
+    touchX -= 4;
+  //キーを押すことでモザイクの度合いを変化させる
+  }else if(keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW)){
+    touchX += 2;
+  }else if(keyIsDown(LEFT_ARROW) || keyIsDown(DOWN_ARROW)){
+    touchX -= 2;
+  //例外処理
+  }else{
+  }
+
+  //クリックまたはタッチ
+  if(isTouch === true){
     if(isMobile === true){
-      touchX = map(width-touches[0].x, width, 0, 0, 240+(width*0.03));
+      touchX = map(width-x_touch, width, 0, 0, 240+(width*0.03));
     }else{
       touchX = map(width-mouseX, width, 0, 0, 240+(width*0.01));
     }
-  } else {
     isTouch = false;
   }
+  
+}
+
+function touchMoved(){
+  x_touch = touches[0].x;
+  isTouch = true;
 }
 
 function windowResized(){
