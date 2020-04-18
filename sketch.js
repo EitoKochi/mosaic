@@ -104,10 +104,10 @@ function registerDegreeMosaic(){
 }
 
 function touchMoved(){
+  isTouch = true;
   if(isMobile === true){
     x_touch = touches[0].x;
   }else{
-    isTouch = true;
   }
 }
 
