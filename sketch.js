@@ -1,43 +1,41 @@
-p5.disableFriendlyErrors = false;
-
 let cap;
 let touchX = 25;
 let isTouch = false;
 let isMobile;
 let x_touch;
 let phase;
-let isOverTouchX;
-
-if(navigator.userAgent.match(/iPhone|ipad|ipod|Android|Windows Phone/i )){
-  isMobile = true;
-}else{
-  isMobile = false;
-}
-
-if(isMobile === true){
-  var constraints = {
-    video: {
-      facingMode: {
-        exact: "environment"
-      },
-      frameRate: {
-        ideal: 20,
-        max: 30
-      } 
-    }
-  };
-}else{
-  var constraints = {
-    video: {
-      frameRate: {
-        ideal: 30,
-        max: 60,
-      } 
-    }
-  };
-}
 
 function setup(){
+  if(navigator.userAgent.match(/iPhone|ipad|ipod|Android|Windows Phone/i )){
+    isMobile = true;
+  }else{
+    isMobile = false;
+  }
+  
+  if(isMobile === true){
+    var constraints = {
+      video: {
+        facingMode: {
+          exact: "environment"
+        },
+        frameRate: {
+          ideal: 20,
+          max: 30
+        } 
+      }
+    };
+  }else{
+    var constraints = {
+      video: {
+        frameRate: {
+          ideal: 30,
+          max: 60,
+        } 
+      }
+    };
+  }
+
+  p5.disableFriendlyErrors = false;
   createCanvas(window.innerWidth, window.innerHeight, P2D);
 
   callCap(constraints);
@@ -83,7 +81,7 @@ function registerDegreeMosaic(){
     //例外処理
     }else{
     }
-    
+
     updateNumText();
   }
   
@@ -114,8 +112,6 @@ function touchMoved(){
 }
 
 function checkOverTouchX(){
-  if(touchX > 240 || touchX < 24){isOverTouchX = true}else{isOverTouchX = false}
-
   if(touchX > 240){
     touchX = 240;
   }else if(touchX < 24){
