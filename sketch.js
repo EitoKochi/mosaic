@@ -6,6 +6,7 @@ let isTouch = false;
 let isMobile;
 let x_touch;
 let phase;
+let isOverTouchX;
 
 if(navigator.userAgent.match(/iPhone|ipad|ipod|Android|Windows Phone/i )){
   isMobile = true;
@@ -49,10 +50,7 @@ function setup(){
 
 function draw(){
   registerDegreeMosaic();
-  
-
-  
-
+  checkOverTouchX();
   let interval = touchX;
   
   for(let w = 0; w < height; w += interval){
@@ -68,32 +66,27 @@ function draw(){
 }
 
 function registerDegreeMosaic(){
-  
-  //上限・下限
-  if(touchX > 240){
-    touchX = 240;
-  }else if(touchX < 24){
-    touchX = 24
-  }
 
   //矢印キー
   //キーを二重に押すことで変化量を倍にさせる
-  if(keyIsDown(RIGHT_ARROW) && keyIsDown(UP_ARROW)){
-    touchX += 4;
+  if(keyIsPressed === true){
+    if(keyIsDown(RIGHT_ARROW) && keyIsDown(UP_ARROW)){
+      touchX += 4;
+    }else if(keyIsDown(LEFT_ARROW) && keyIsDown(DOWN_ARROW)){
+      touchX -= 4;
+    //キーを押すことでモザイクの度合いを変化させる
+    }else if(keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW)){
+      touchX += 2;
+    }else if(keyIsDown(LEFT_ARROW) || keyIsDown(DOWN_ARROW)){
+      touchX -= 2;
+    
+    //例外処理
+    }else{
+    }
+    
     updateNumText();
-  }else if(keyIsDown(LEFT_ARROW) && keyIsDown(DOWN_ARROW)){
-    touchX -= 4;
-    updateNumText();
-  //キーを押すことでモザイクの度合いを変化させる
-  }else if(keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW)){
-    touchX += 2;
-    updateNumText();
-  }else if(keyIsDown(LEFT_ARROW) || keyIsDown(DOWN_ARROW)){
-    touchX -= 2;
-    updateNumText();
-  //例外処理
-  }else{
   }
+  
   
   //クリックまたはタッチ
   if(isTouch === true){
@@ -103,11 +96,32 @@ function registerDegreeMosaic(){
       touchX = map(width-mouseX, width, 0, 0, 240+(width*0.01));
     }
     isTouch = false;
+
+    checkOverTouchX();
     updateNumText();
   //例外処理
   }else{
   }
 
+}
+
+function touchMoved(){
+  if(isMobile === true){
+    x_touch = touches[0].x;
+  }else{
+    isTouch = true;
+  }
+}
+
+function checkOverTouchX(){
+  if(touchX > 240 || touchX < 24){isOverTouchX = true}else{isOverTouchX = false}
+
+  if(touchX > 240){
+    touchX = 240;
+  }else if(touchX < 24){
+    touchX = 24
+  }else{
+  }
 }
 
 function updateNumText(){
@@ -119,12 +133,6 @@ function updateNumText(){
   let dNum = document.getElementById('num');
   dNum.textContent='';
   dNum.insertAdjacentHTML('afterbegin', phase);
-}
-
-
-function touchMoved(){
-  x_touch = touches[0].x;
-  isTouch = true;
 }
 
 function windowResized(){
