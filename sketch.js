@@ -137,6 +137,10 @@ function windowResized(){
   callCap(constraints);
 }
 
+function touchStarted(){
+  return false;
+}
+
 function callCap(constraints){
   cap = createCapture(constraints);
   cap.size(window.innerWidth, window.innerHeight);
